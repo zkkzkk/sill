@@ -172,6 +172,11 @@ struct PortraitStreamScreen: View {
     /// own view, so a pinch redraws nothing else.
     let zoom: StreamZoomModel
 
+    /// The software keyboard's top in the screen's coordinates while it is up, else nil: in the
+    /// halves it can cover the whole lower half (the Duo's inner display half-folded), the key row's
+    /// keyboard cap with it, and an iPhone's keyboard has no key that takes it down.
+    @State private var keyboardTop: CGFloat?
+
     private var streamShape: RoundedRectangle { RoundedRectangle(cornerRadius: 12, style: .continuous) }
     /// The Duo's fold across this screen (StreamScreen, iOS 27.1): where the halves split.
     @Environment(\.duoFold) private var duoFold
@@ -181,14 +186,21 @@ struct PortraitStreamScreen: View {
             if metrics.phone {
                 phone(PhonePortraitLayout(size: geo.size, keyboard: largerKeyboard), origin: geo.frame(in: .global).origin)
             } else {
-                halves(geo.size)
+                halves(geo.size, origin: geo.frame(in: .global).origin)
             }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillChangeFrameNotification)) { note in
+            guard let end = note.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+            keyboardTop = end.height > 0 ? end.minY : nil
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
+            keyboardTop = nil
         }
     }
 
     // MARK: Two halves: the inner display, an iPad window
 
-    private func halves(_ size: CGSize) -> some View {
+    private func halves(_ size: CGSize, origin: CGPoint) -> some View {
         // At the middle, as before; on the Duo (iOS 27.1) at the fold's real band half-folded, and
         // open flat at the picture's own shape (docs/iphone-duo-plan.md, (b1) and (b2)).
         let split = DuoPosture.portraitSplit(size, duoFold, aspect: client.duoPaneAspect(textScale: textScale),
@@ -238,7 +250,38 @@ struct PortraitStreamScreen: View {
                     .transition(settingsTransition(UnitPoint(x: 1 - metrics.padSide / max(size.width, 1),
                                                              y: top / max(size.height, 1))))
             }
+
+            // The software keyboard over the key row (the Duo's inner display half-folded, where it
+            // covers the whole lower half): a button just above it takes it down again.
+            if keyboardShown, let keyboardTop {
+                let top = keyboardTop - origin.y
+                let keysEnd = split.controls + metrics.padTop + metrics.barHeight + metrics.rowGap + metrics.keyBlockHeight
+                if top < keysEnd, top > 60 {
+                    // At the leading edge: the clipboard's chip takes the trailing corner above the bar.
+                    hideKeyboardButton
+                        .padding(.leading, metrics.padSide)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.top, top - 52)
+                        .transition(.opacity)
+                }
+            }
         }
+    }
+
+    /// Takes the software keyboard down where it covers the key row's keyboard cap.
+    private var hideKeyboardButton: some View {
+        Button {
+            overlay.toggleKeyboard()
+        } label: {
+            Image(systemName: "keyboard.chevron.compact.down")
+                .font(.system(size: 20, weight: .medium))
+                .foregroundStyle(Palette.text)
+                .frame(width: 52, height: 44)
+                .background(Palette.bar, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel(String(localized: "Hide the keyboard"))
     }
 
     private func controls(width: CGFloat) -> some View {
