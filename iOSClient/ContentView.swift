@@ -1124,10 +1124,6 @@ struct ConnectScreen: View {
 
     /// The least room between the column and the footer.
     private static let footerGap: CGFloat = 24
-    /// How far a footer link's tap area reaches above and below its words: a footnote line is about
-    /// 16 pt, so the area is about 44 pt tall at the default size. The layout never sees it (the
-    /// Settings panel's Done does the same).
-    private static let linkReach: CGFloat = 14
 
     var body: some View {
         GeometryReader { geo in
@@ -1615,75 +1611,21 @@ struct ConnectScreen: View {
 
     // MARK: The footer
 
-    /// For someone who found Sill here first, and for App Review: what else it needs, where to get
-    /// it, where to get help, and the privacy policy. Muted and 13 pt like the status line, but it
-    /// follows the text size, up to the Settings panel's cap (the column keeps its fixed sizes); it
-    /// wraps, never truncates. Each link opens in Safari (a Link hands its URL to the environment's
-    /// openURL), and VoiceOver reads it as a link. The addresses are SillLinks'.
+    /// For someone who found Sill here first: what else it needs. Muted and 13 pt like the status
+    /// line, but it follows the text size, up to the Settings panel's cap (the column keeps its fixed
+    /// sizes); it wraps, never truncates.
     private func footer(_ layout: ConnectLayout) -> some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("Needs the free Sill app on your Mac.")
-                .foregroundStyle(Palette.muted)
-                .fixedSize(horizontal: false, vertical: true)
-            // All three on one line while they fit, else the download link over the other two,
-            // the lines far enough apart that their tap areas meet without overlapping. Upward the
-            // areas reach a little into the line above, which is plain text.
-            ViewThatFits(in: .horizontal) {
-                HStack(spacing: 0) {
-                    downloadLink
-                    linkSeparator
-                    supportAndPrivacy
-                }
-                VStack(alignment: .leading, spacing: 2 * Self.linkReach) {
-                    downloadLink
-                    supportAndPrivacy
-                }
-            }
-        }
-        .font(.footnote)
-        .dynamicTypeSize(...DynamicTypeSize.xxLarge)
-        .padding(.horizontal, 10)
-        // Under the column's own edge and as wide as the rows, so the two line up; on a screen
-        // narrower than 412 pt (a phone, a window in Slide Over) that is the screen's width less
-        // the margins, so the links go to a second line rather than past the edge.
-        .frame(width: layout.columnWidth, alignment: .leading)
-        .padding(.leading, layout.columnX)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        // Room for the last link's tap area, which then stays on the screen.
-        .padding(.bottom, Self.linkReach)
-    }
-
-    private var downloadLink: some View {
-        footerLink("Get it at \(SillLinks.siteName)", to: SillLinks.download)
-    }
-
-    /// Support, then the privacy policy, on one line.
-    private var supportAndPrivacy: some View {
-        HStack(spacing: 0) {
-            footerLink("Support", to: SillLinks.support)
-            linkSeparator
-            footerLink("Privacy Policy", to: SillLinks.privacy)
-        }
-    }
-
-    /// The dot between two links on a line. VoiceOver skips it.
-    private var linkSeparator: some View {
-        Text(" · ")
+        Text("Needs the free Sill app on your Mac.")
             .foregroundStyle(Palette.muted)
-            .accessibilityHidden(true)
-    }
-
-    private func footerLink(_ title: LocalizedStringKey, to url: URL) -> some View {
-        Link(destination: url) {
-            Text(title)
-                .foregroundStyle(Palette.accent)
-                // A link centres a label that wraps (a longer address); keep it on the footer's edge.
-                .multilineTextAlignment(.leading)
-                .fixedSize(horizontal: false, vertical: true)
-                .padding(.vertical, Self.linkReach)
-                .contentShape(Rectangle())
-        }
-        .padding(.vertical, -Self.linkReach)
+            .fixedSize(horizontal: false, vertical: true)
+            .font(.footnote)
+            .dynamicTypeSize(...DynamicTypeSize.xxLarge)
+            .padding(.horizontal, 10)
+            // Under the column's own edge and as wide as the rows, so the two line up.
+            .frame(width: layout.columnWidth, alignment: .leading)
+            .padding(.leading, layout.columnX)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.bottom, 8)
     }
 }
 

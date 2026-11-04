@@ -2225,16 +2225,6 @@
         }
       }
     },
-    "Get it at %@": {
-      "localizations": {
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "前往 %@ 获取"
-          }
-        }
-      }
-    },
     "Group": {
       "localizations": {
         "zh-Hans": {
@@ -3193,16 +3183,6 @@
         }
       }
     },
-    "Privacy Policy": {
-      "localizations": {
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "隐私政策"
-          }
-        }
-      }
-    },
     "Pro": {
       "localizations": {
         "zh-Hans": {
@@ -3755,16 +3735,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "正在串流 %1$lld×%2$lld，每秒 %3$lld 帧，%4$lld 兆比特每秒，在虚拟显示器上"
-          }
-        }
-      }
-    },
-    "Support": {
-      "localizations": {
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "支持"
           }
         }
       }

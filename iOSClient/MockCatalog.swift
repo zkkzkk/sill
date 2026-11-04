@@ -611,7 +611,7 @@ enum MockCatalog {
         }
         func remote(_ name: String, _ id: String) -> FoundMac { FoundMac(name: name, endpoint: nil, route: .remote, macID: id) }
         let remoteRows = [mac("Studio", .wifi), mac("Mac mini", .direct),
-                          remote("Noah Saffer’s MacBook Pro in the Studio", "A3C5HR4RBV67YR21"), remote("Mac mini (2)", "0123456789ABCDEF")]
+                          remote("Jordan Avery’s MacBook Pro in the Studio", "A3C5HR4RBV67YR21"), remote("Mac mini (2)", "0123456789ABCDEF")]
         /// A row at home as `recomputeMacs` makes it: its door (`p`), what this device knows of its
         /// Mac, and the word DiscoveryPolicy.rowWord gives them. `cable`: a Wired row whose interface
         /// carries only link-local addresses (the USB cable to the Mac); false for a USB Ethernet
@@ -644,7 +644,7 @@ enum MockCatalog {
             client.status = StreamClient.lookingNearby
             // The long name checks that "Direct" never truncates: the title does.
             client.macs = [mac("Studio", .wifi), mac("Mac mini", .direct),
-                           mac("Noah Saffer’s MacBook Pro in the Studio (2)", .direct)]
+                           mac("Jordan Avery’s MacBook Pro in the Studio (2)", .direct)]
         case .methods:
             // Network rows first, then the Direct one, as DiscoveryPolicy.rows orders them. "Office
             // iMac" was seen only on interfaces the device cannot name (DiscoveryPolicy.method: no
@@ -653,8 +653,8 @@ enum MockCatalog {
             client.searchingNearby = true
             client.status = StreamClient.lookingNearby
             client.macs = [mac("Mac Studio", .wired), mac("Mac mini", .wifi), mac("Office iMac", nil),
-                           mac("Noah Saffer’s MacBook Pro in the Studio (2)", .wired),
-                           mac("Noah Saffer’s iMac on the Desk by the Window", .wifi),
+                           mac("Jordan Avery’s MacBook Pro in the Studio (2)", .wired),
+                           mac("Jordan Avery’s iMac on the Desk by the Window", .wifi),
                            mac("MacBook Air", .direct)]
         case .denied:
             client.status = StreamClient.allowLocalNetwork
@@ -698,8 +698,8 @@ enum MockCatalog {
                            home("Office iMac", .wired, cable: false),
                            home("Living Room iMac", .wifi, door: .open),
                            home("Mac Studio", .wifi, door: .plain, saved: true, homeTLS: true),
-                           home("Noah Saffer’s MacBook Pro in the Studio (2)", .wifi),
-                           home("Noah Saffer’s iMac on the Desk by the Window", .wired, door: .plain, saved: true, homeTLS: true)]
+                           home("Jordan Avery’s MacBook Pro in the Studio (2)", .wifi),
+                           home("Jordan Avery’s iMac on the Desk by the Window", .wired, door: .plain, saved: true, homeTLS: true)]
         case .homeasking:
             let mini = home("Mac mini", .wifi)
             client.macs = [mini, studio]
@@ -744,7 +744,7 @@ enum MockCatalog {
             let mini = FoundMac(name: "Mac mini", endpoint: .service(name: "Mac mini", type: "_sill._tcp", domain: "local.", interface: nil),
                                 route: .network, savedByName: "HOMEPAIRING8", method: .wired, door: .pairingRequired, homeWord: wiredWord)
             let miniRemote = remote("Mac mini", "HOMEPAIRING8")
-            let pro = remote("Noah Saffer’s MacBook Pro in the Studio", "A3C5HR4RBV67YR21")
+            let pro = remote("Jordan Avery’s MacBook Pro in the Studio", "A3C5HR4RBV67YR21")
             let second = remote("Mac mini (2)", "0123456789ABCDEF")
             client.macs = [mini, studio, home("Office iMac", .wired, saved: false), miniRemote, pro, second]
             if client.macGroups.isEmpty {
