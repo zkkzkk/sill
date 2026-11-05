@@ -5,8 +5,8 @@
       "comment" : "Bundle display name",
       "extractionState" : "extracted_with_value",
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "new", "value" : "Sill" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "Sill" } }
+        "en" : { "stringUnit" : { "state" : "new", "value" : "Pane" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "Pane" } }
       }
     },
     "NSCameraUsageDescription" : {
