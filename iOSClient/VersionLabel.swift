@@ -42,10 +42,12 @@ struct VersionLabel: Equatable {
     /// The words VoiceOver says: "Sill version 0.6.2, build 1400"; "Sill version 0.6.2" without a
     /// build, "Sill, build 1400" without a version.
     var spoken: String {
-        var words = "Sill"
-        if let version { words += " version \(version)" }
-        if let build { words += ", build \(build)" }
-        return words
+        switch (version, build) {
+        case let (version?, build?): return String(localized: "Sill version \(version), build \(build)")
+        case let (version?, nil): return String(localized: "Sill version \(version)")
+        case let (nil, build?): return String(localized: "Sill, build \(build)")
+        case (nil, nil): return "Sill"
+        }
     }
 
     /// A value as the label takes it: a string, or a number (an Info.plist can hold an integer where a

@@ -190,7 +190,7 @@ public enum DesktopDisplays {
     public static let maxDots = 6
 
     /// VoiceOver's label for today's button: with one stop, and from a Mac before this.
-    public static let todaysLabel = "Show the full Mac desktop"
+    public static var todaysLabel: String { String(localized: "Show the full Mac desktop") }
 
     /// The Desktop button as a device draws it and VoiceOver reads it.
     public struct Button: Equatable {
@@ -218,22 +218,22 @@ public enum DesktopDisplays {
     /// the Desktop, it does not step.
     public static func button(displays: Int?, current: Int?, names: [String]?, desktopStreams: Bool) -> Button {
         guard let n = shown(displays: displays, current: current), let count = displays else {
-            return Button(label: "Desktop", dots: 0, lit: 0, counter: nil, accessibilityLabel: todaysLabel,
+            return Button(label: String(localized: "Desktop"), dots: 0, lit: 0, counter: nil, accessibilityLabel: todaysLabel,
                           accessibilityValue: nil, accessibilityHint: nil, steps: false)
         }
         let dots = desktopStreams && count <= maxDots ? count : 0
         return Button(label: label(displays: count, current: n), dots: dots, lit: dots > 0 ? n : 0,
                       counter: desktopStreams && count > maxDots ? "\(n)/\(count)" : nil,
-                      accessibilityLabel: "Desktop", accessibilityValue: value(n, of: count, names: names),
-                      accessibilityHint: desktopStreams ? "Shows the next display." : "Shows the Mac’s desktop.",
+                      accessibilityLabel: String(localized: "Desktop"), accessibilityValue: value(n, of: count, names: names),
+                      accessibilityHint: desktopStreams ? String(localized: "Shows the next display.") : String(localized: "Shows the Mac’s desktop."),
                       steps: desktopStreams)
     }
 
     /// The button's words under its symbol: "Desktop" with one stop, from a Mac before this, or when which
     /// one is not known; else "Desktop 2".
     public static func label(displays: Int?, current: Int?) -> String {
-        guard let n = shown(displays: displays, current: current) else { return "Desktop" }
-        return "Desktop \(n)"
+        guard let n = shown(displays: displays, current: current) else { return String(localized: "Desktop") }
+        return String(localized: "Desktop \(n)")
     }
 
     /// Whether the Desktop button's tap asks for the next stop (kind 47) rather than picking the Desktop:
@@ -247,7 +247,7 @@ public enum DesktopDisplays {
     public static func value(_ n: Int, of count: Int, names: [String]?) -> String {
         let name = names.flatMap { $0.count == count && (1...count).contains(n) ? $0[n - 1] : nil }?
             .trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-        return name.isEmpty ? "Display \(n) of \(count)" : "Display \(n) of \(count), \(name)"
+        return name.isEmpty ? String(localized: "Display \(n) of \(count)") : String(localized: "Display \(n) of \(count), \(name)")
     }
 
     private static func shown(displays: Int?, current: Int?) -> Int? {

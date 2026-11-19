@@ -100,8 +100,8 @@ MUTANTS = {
                                  "width: size.width - left - right, height: size.height - top - bottom"),
     "P18 the screen choice clear of the housing": ("        case .screen: break\n", "        case .screen: top = insets.top; left = insets.left; right = insets.right\n"),
     "P19 the status bar's inset counted": ("        if topIsStatusBar { top = 0 }\n", ""),
-    "W1 the shake's words without the device": ('static func shakeFootnote(device: String) -> String { "Shaking your \\(device) brings the controls back too." }',
-                                                'static func shakeFootnote(device: String) -> String { "Shaking your device brings the controls back too." }'),
+    "W1 the shake's words without the device": ('static func shakeFootnote(device: String) -> String { String(localized: "Shaking your \\(device) brings the controls back too.") }',
+                                                'static func shakeFootnote(device: String) -> String { String(localized: "Shaking your device brings the controls back too.") }'),
     "L1 Full Screen leads nowhere": ("var afterHide: ChromeLevel { .hidden }", "var afterHide: ChromeLevel { .shown }"),
 }
 caught = 0

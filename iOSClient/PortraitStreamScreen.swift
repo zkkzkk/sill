@@ -377,7 +377,7 @@ struct PortraitStreamScreen: View {
     /// it large, as a phone's bar buttons do.
     private var keyboardToggle: some View {
         BarButton(open: true, width: DuoPosture.keyboardToggleSize, height: DuoPosture.keyboardToggleSize, radius: 11,
-                  accessibilityLabel: "Hide the keyboard", action: { overlay.toggleKeyboard() }) {
+                  accessibilityLabel: String(localized: "Hide the keyboard"), action: { overlay.toggleKeyboard() }) {
             Image(systemName: "keyboard")
                 .font(.system(size: 20))
                 .foregroundStyle(Palette.accent)
@@ -682,7 +682,7 @@ struct PortraitStreamScreen: View {
         .overlay { LockedMacShade(client: client) }
         .overlay(alignment: .top) { LinkLineView(text: linkLine, lines: linkLineLines) }
         // Full screen: the picture as one element for VoiceOver, Switch Control and Voice Control.
-        .overlay { HiddenPictureElement(hidden: hidden, mac: client.macName.isEmpty ? "The Mac" : client.macName, show: showChrome) }
+        .overlay { HiddenPictureElement(hidden: hidden, mac: client.macName.isEmpty ? String(localized: "The Mac") : client.macName, show: showChrome) }
         .clipShape(streamShape)
         .overlay(streamShape.strokeBorder(Color.white.opacity(hidden ? 0 : 0.09), lineWidth: 1))
         .onGeometryChange(for: CGSize.self, of: { $0.size }, action: { if measured { onPanelSize($0) } })

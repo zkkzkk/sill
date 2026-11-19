@@ -114,7 +114,7 @@ enum UpdateInstallPolicy {
     /// text"). `name` is `name(version:build:)`'s. None after an update Sill installed by itself, whose words are
     /// the automatic update's own.
     static func installedLine(_ name: String, automatic: Bool) -> String? {
-        automatic ? nil : "\(name) was installed successfully."
+        automatic ? nil : String(localized: "\(name) was installed successfully.")
     }
 
     /// The watcher's token (a UUID's text, AppUpdater): the only kind whose started note Sill makes or looks for,
@@ -307,9 +307,15 @@ enum UpdateInstallPolicy {
         return (note.count > 3 && note[3] == UpdateManifest.nightlyTag) == nightly
     }
 
-    /// How an offer is named: "Sill 0.6.2", or "Sill nightly 0.6.2 (1471)".
+    /// How an offer is named: "Sill 0.6.2", or "Sill nightly 0.6.2 (1471)". The log's words: Settings and the
+    /// menu say `shownName`.
     static func name(version: SillVersion, build: Int?) -> String {
         build.map { "Sill nightly \(version) (\($0))" } ?? "Sill \(version)"
+    }
+
+    /// `name` as Settings and the menu show it, in the Mac's language.
+    static func shownName(version: SillVersion, build: Int?) -> String {
+        build.map { String(localized: "Sill nightly \(String(describing: version)) (\(String($0)))") } ?? "Sill \(version)"
     }
 
     static func strictTag(_ tag: String) -> SillVersion? { UpdateManifest.strictTag(tag) }
@@ -406,23 +412,23 @@ enum UpdateInstallPolicy {
     /// The refusal's words, under the offer in Settings › General.
     static func words(_ r: Refusal) -> String {
         switch r {
-        case .notRelease: return "This copy of Sill isn’t a notarized release, so it can’t update itself."
-        case .testFeed: return "This run checks a test feed, so it doesn’t update itself."
+        case .notRelease: return String(localized: "This copy of Sill isn’t a notarized release, so it can’t update itself.")
+        case .testFeed: return String(localized: "This run checks a test feed, so it doesn’t update itself.")
         case .translocated:
-            return "macOS is running Sill from a temporary copy. Move Sill to your Applications folder, open it from there, then update."
+            return String(localized: "macOS is running Sill from a temporary copy. Move Sill to your Applications folder, open it from there, then update.")
         case .diskImage:
-            return "Sill is running from a disk image. Copy it to your Applications folder, open it from there, then update."
-        case .readOnlyVolume(let v): return "Sill is on a disk this Mac can’t change (\(v))."
-        case .networkVolume(let v): return "Sill is on a network disk (\(v)), so it doesn’t update itself there."
-        case .link(let path): return "Sill runs through a link (\(path)), so it can’t replace itself there."
-        case .notWritable(let folder): return "Sill is in a folder this account can’t change (\(folder))."
-        case .otherOwner(let name): return "Sill belongs to another account on this Mac (\(name)). Update it from that account."
-        case .changedSinceStart(let path): return "Sill at \(path) changed since it started. Quit Sill and open it again."
+            return String(localized: "Sill is running from a disk image. Copy it to your Applications folder, open it from there, then update.")
+        case .readOnlyVolume(let v): return String(localized: "Sill is on a disk this Mac can’t change (\(v)).")
+        case .networkVolume(let v): return String(localized: "Sill is on a network disk (\(v)), so it doesn’t update itself there.")
+        case .link(let path): return String(localized: "Sill runs through a link (\(path)), so it can’t replace itself there.")
+        case .notWritable(let folder): return String(localized: "Sill is in a folder this account can’t change (\(folder)).")
+        case .otherOwner(let name): return String(localized: "Sill belongs to another account on this Mac (\(name)). Update it from that account.")
+        case .changedSinceStart(let path): return String(localized: "Sill at \(path) changed since it started. Quit Sill and open it again.")
         case .otherAccount(let name):
-            return "Sill is open in another account on this Mac (\(name)). Quit it there first, then update."
-        case .otherInstance: return "Another copy of Sill is running. Quit it first, then update."
-        case .finishingUpdate: return "Sill was just updated. Update Now is ready again in half a minute."
-        case .lowSpace(let v, let mb): return "Not enough free space on \(v): about \(mb) MB are needed."
+            return String(localized: "Sill is open in another account on this Mac (\(name)). Quit it there first, then update.")
+        case .otherInstance: return String(localized: "Another copy of Sill is running. Quit it first, then update.")
+        case .finishingUpdate: return String(localized: "Sill was just updated. Update Now is ready again in half a minute.")
+        case .lowSpace(let v, let mb): return String(localized: "Not enough free space on \(v): about \(String(mb)) MB are needed.")
         }
     }
 
@@ -653,20 +659,20 @@ enum UpdateInstallPolicy {
     /// The bundle's words: what Settings says after "Couldn’t update: ".
     static func words(_ p: BundleProblem) -> String {
         switch p {
-        case .notABundle: return "the download isn’t a Sill app"
-        case .invalidSignature: return "the downloaded app’s code signature isn’t valid"
-        case .wrongSigner: return "the downloaded app isn’t signed with the Developer ID of Sill’s developer"
-        case .notNotarized, .noStapledTicket: return "Apple hasn’t notarized the downloaded app"
-        case .wouldLosePermissions: return "the downloaded app wouldn’t keep Sill’s permissions"
-        case .wrongIdentity: return "the downloaded app isn’t Sill"
-        case .noHardenedRuntime, .debuggable: return "the downloaded app isn’t built as Sill’s releases are"
-        case .entitlement: return "the downloaded app wouldn’t keep Sill’s paired devices"
-        case .info: return "the downloaded app’s information isn’t Sill’s"
-        case .notNewer(let v): return "the downloaded app is version \(v), not newer than this one"
-        case .notManifest: return "the downloaded app isn’t the one signed with Sill’s update key"
-        case .needsNewerMacOS(let v): return "the new version needs macOS \(v) or later"
-        case .noSliceForThisMac: return "the new version doesn’t run on this Mac"
-        case .codeChanged: return "the app changed while Sill was installing it"
+        case .notABundle: return String(localized: "the download isn’t a Sill app")
+        case .invalidSignature: return String(localized: "the downloaded app’s code signature isn’t valid")
+        case .wrongSigner: return String(localized: "the downloaded app isn’t signed with the Developer ID of Sill’s developer")
+        case .notNotarized, .noStapledTicket: return String(localized: "Apple hasn’t notarized the downloaded app")
+        case .wouldLosePermissions: return String(localized: "the downloaded app wouldn’t keep Sill’s permissions")
+        case .wrongIdentity: return String(localized: "the downloaded app isn’t Sill")
+        case .noHardenedRuntime, .debuggable: return String(localized: "the downloaded app isn’t built as Sill’s releases are")
+        case .entitlement: return String(localized: "the downloaded app wouldn’t keep Sill’s paired devices")
+        case .info: return String(localized: "the downloaded app’s information isn’t Sill’s")
+        case .notNewer(let v): return String(localized: "the downloaded app is version \(v), not newer than this one")
+        case .notManifest: return String(localized: "the downloaded app isn’t the one signed with Sill’s update key")
+        case .needsNewerMacOS(let v): return String(localized: "the new version needs macOS \(v) or later")
+        case .noSliceForThisMac: return String(localized: "the new version doesn’t run on this Mac")
+        case .codeChanged: return String(localized: "the app changed while Sill was installing it")
         }
     }
 
@@ -744,76 +750,85 @@ enum UpdateInstallPolicy {
     /// it can have its version ("Sill 0.6.2 didn’t start, so Sill nightly 0.6.2 (1597) is back.").
     static func line(_ f: Failure, running: SillVersion, offered: SillVersion, keptAt: String?, offeredBuild: Int? = nil,
                      runningBuild: Int? = nil) -> String {
-        let have = name(version: running, build: runningBuild)
-        let unchanged = "\(have) is unchanged."
-        func couldNot(_ why: String) -> String { "Couldn’t update: \(why). \(unchanged)" }
+        let have = shownName(version: running, build: runningBuild)
+        let unchanged = String(localized: "\(have) is unchanged.")
+        func couldNot(_ why: String) -> String { String(localized: "Couldn’t update: \(why). \(unchanged)") }
+        let offeredText = String(describing: offered), runningText = String(describing: running)
         if let build = offeredBuild {
-            let nightly = name(version: offered, build: build)
+            let nightly = shownName(version: offered, build: build)
             switch f {
-            case .releaseChanged: return "GitHub’s newest nightly is no longer \(nightly). Check again."
-            case .releaseNotNewer: return couldNot("the nightly isn’t newer than this Sill")
-            case .releaseUnreadable: return couldNot("GitHub’s answer wasn’t a nightly Sill can install")
-            case .notSigned: return "\(nightly) isn’t signed with Sill’s nightly key yet, so it can’t be installed from here. Try again later."
+            case .releaseChanged: return String(localized: "GitHub’s newest nightly is no longer \(nightly). Check again.")
+            case .releaseNotNewer: return couldNot(String(localized: "the nightly isn’t newer than this Sill"))
+            case .releaseUnreadable: return couldNot(String(localized: "GitHub’s answer wasn’t a nightly Sill can install"))
+            case .notSigned: return String(localized: "\(nightly) isn’t signed with Sill’s nightly key yet, so it can’t be installed from here. Try again later.")
             case .manifest(let p): return couldNot(updateKeyWords(p, nightly: true))
-            case .manifestMismatch: return couldNot("the nightly on GitHub isn’t the one signed with Sill’s nightly key")
-            case .bundle(.notManifest): return couldNot("the downloaded app isn’t the one signed with Sill’s nightly key")
-            case .didNotStart(_, true): return "\(nightly) didn’t start, so \(have) is back."
+            case .manifestMismatch: return couldNot(String(localized: "the nightly on GitHub isn’t the one signed with Sill’s nightly key"))
+            case .bundle(.notManifest): return couldNot(String(localized: "the downloaded app isn’t the one signed with Sill’s nightly key"))
+            case .didNotStart(_, true): return String(localized: "\(nightly) didn’t start, so \(have) is back.")
             default: break
             }
         }
         switch f {
         case .unavailable(let r): return words(r)
-        case .releaseChanged: return "GitHub’s latest release is no longer Sill \(offered). Check again."
-        case .releaseNotNewer: return couldNot("the release isn’t newer than this Sill")
-        case .releaseUnreadable: return couldNot("GitHub’s answer wasn’t a release Sill can install")
-        case .notSigned: return "Sill \(offered) isn’t signed with Sill’s update key yet, so it can’t be installed from here. Try again later, or open its release page."
-        case .noConnection: return couldNot("this Mac couldn’t reach GitHub")
-        case .github(let status): return couldNot("GitHub answered with an error (HTTP \(status))")
+        case .releaseChanged: return String(localized: "GitHub’s latest release is no longer Sill \(offeredText). Check again.")
+        case .releaseNotNewer: return couldNot(String(localized: "the release isn’t newer than this Sill"))
+        case .releaseUnreadable: return couldNot(String(localized: "GitHub’s answer wasn’t a release Sill can install"))
+        case .notSigned: return String(localized: "Sill \(offeredText) isn’t signed with Sill’s update key yet, so it can’t be installed from here. Try again later, or open its release page.")
+        case .noConnection: return couldNot(String(localized: "this Mac couldn’t reach GitHub"))
+        case .github(let status): return couldNot(String(localized: "GitHub answered with an error (HTTP \(String(status)))"))
         case .manifest(let p): return couldNot(updateKeyWords(p))
-        case .manifestMismatch: return couldNot("the release on GitHub isn’t the one signed with Sill’s update key")
-        case .redirectRefused: return couldNot("GitHub sent the download somewhere Sill doesn’t download from")
-        case .download: return couldNot("the download stopped")
-        case .sizeMismatch, .tooLarge, .hashMismatch: return couldNot("the download didn’t match the release")
-        case .lowSpace(let mb): return couldNot("there isn’t enough free space (about \(mb) MB are needed)")
-        case .disk: return couldNot("Sill couldn’t write the update")
-        case .archive: return couldNot("the download isn’t an archive Sill can install")
+        case .manifestMismatch: return couldNot(String(localized: "the release on GitHub isn’t the one signed with Sill’s update key"))
+        case .redirectRefused: return couldNot(String(localized: "GitHub sent the download somewhere Sill doesn’t download from"))
+        case .download: return couldNot(String(localized: "the download stopped"))
+        case .sizeMismatch, .tooLarge, .hashMismatch: return couldNot(String(localized: "the download didn’t match the release"))
+        case .lowSpace(let mb): return couldNot(String(localized: "there isn’t enough free space (about \(String(mb)) MB are needed)"))
+        case .disk: return couldNot(String(localized: "Sill couldn’t write the update"))
+        case .archive: return couldNot(String(localized: "the download isn’t an archive Sill can install"))
         case .bundle(let p): return couldNot(words(p))
-        case .changedSinceStart: return "Sill changed on disk since it started. Quit Sill and open it again, then update."
-        case .swapFailed: return couldNot("macOS didn’t let Sill replace itself")
+        case .changedSinceStart: return String(localized: "Sill changed on disk since it started. Quit Sill and open it again, then update.")
+        case .swapFailed: return couldNot(String(localized: "macOS didn’t let Sill replace itself"))
         case .checkAfterSwap(let p, let putBack):
             return putBack ? couldNot(words(p)) : lost(running: running, keptAt: keptAt)
         case .didNotStart(_, let putBack):
-            return putBack ? "Sill \(offered) didn’t start, so \(have) is back." : lost(running: running, keptAt: keptAt)
+            return putBack ? String(localized: "Sill \(offeredText) didn’t start, so \(have) is back.") : lost(running: running, keptAt: keptAt)
         case .noWholeSillLeft:
-            return "An update of Sill didn’t finish: the new version didn’t start the first time, and Sill’s watcher couldn’t leave a whole copy of Sill in its place. If this copy misbehaves, download Sill again from getsill.app."
+            return String(localized: "An update of Sill didn’t finish: the new version didn’t start the first time, and Sill’s watcher couldn’t leave a whole copy of Sill in its place. If this copy misbehaves, download Sill again from getsill.app.")
         case .keptUnstarted:
-            return "Sill \(running) didn’t start the first time, and the copy it replaced failed its last check, so Sill \(running) stayed. If it misbehaves, download Sill again from getsill.app."
-        case .stopped: return "Sill’s developer stopped Sill \(offered) with a stop signed with Sill’s update key, so it isn’t installed. \(unchanged)"
-        case .stopUnreadable: return couldNot("the release carries a stop that isn’t signed with Sill’s update key")
-        case .notAutomatic(let why): return "Sill didn’t install \(offered) by itself: \(why). Update Now still can."
-        case .cancelled: return "Update cancelled. \(unchanged)"
+            return String(localized: "Sill \(runningText) didn’t start the first time, and the copy it replaced failed its last check, so Sill \(runningText) stayed. If it misbehaves, download Sill again from getsill.app.")
+        case .stopped: return String(localized: "Sill’s developer stopped Sill \(offeredText) with a stop signed with Sill’s update key, so it isn’t installed. \(unchanged)")
+        case .stopUnreadable: return couldNot(String(localized: "the release carries a stop that isn’t signed with Sill’s update key"))
+        case .notAutomatic(let why): return String(localized: "Sill didn’t install \(offeredText) by itself: \(why). Update Now still can.")
+        case .cancelled: return String(localized: "Update cancelled. \(unchanged)")
         }
     }
 
     /// Why the release's signature with Sill's update key didn't hold, in Settings' words: kept apart from
     /// Apple's signature and notarization (BundleProblem), which the download is checked against too.
+    /// Each sentence whole, a release's and a nightly's, so a language can say each its own way.
     static func updateKeyWords(_ p: UpdateManifest.Problem, nightly: Bool = false) -> String {
-        let (what, key) = nightly ? ("nightly", "nightly key") : ("release", "update key")
         switch p {
-        case .noKey, .badKey: return "this Sill has no usable \(key)"
-        case .unknownKey: return "the \(what) is signed with \(key == "update key" ? "an update key" : "a nightly key") this Sill doesn’t know"
-        case .badSignature: return "the \(what)’s signature with Sill’s \(key) isn’t valid"
-        default: return "the \(what)’s signature with Sill’s \(key) can’t be read"
+        case .noKey, .badKey:
+            return nightly ? String(localized: "this Sill has no usable nightly key") : String(localized: "this Sill has no usable update key")
+        case .unknownKey:
+            return nightly ? String(localized: "the nightly is signed with a nightly key this Sill doesn’t know")
+                           : String(localized: "the release is signed with an update key this Sill doesn’t know")
+        case .badSignature:
+            return nightly ? String(localized: "the nightly’s signature with Sill’s nightly key isn’t valid")
+                           : String(localized: "the release’s signature with Sill’s update key isn’t valid")
+        default:
+            return nightly ? String(localized: "the nightly’s signature with Sill’s nightly key can’t be read")
+                           : String(localized: "the release’s signature with Sill’s update key can’t be read")
         }
     }
 
     /// The old copy was not put back: where it is when it is kept whole, else (it was not the old copy,
     /// whole, any more) the download.
     private static func lost(running: SillVersion, keptAt: String?) -> String {
+        let runningText = String(describing: running)
         guard let keptAt else {
-            return "Sill couldn’t put \(running) back in place. Download Sill again from getsill.app and put it in your Applications folder."
+            return String(localized: "Sill couldn’t put \(runningText) back in place. Download Sill again from getsill.app and put it in your Applications folder.")
         }
-        return "Sill couldn’t put \(running) back in place. It is at \(keptAt): quit Sill and move it to your Applications folder soon, as macOS empties that folder after a few days."
+        return String(localized: "Sill couldn’t put \(runningText) back in place. It is at \(keptAt): quit Sill and move it to your Applications folder soon, as macOS empties that folder after a few days.")
     }
 
     /// The log's words for a failure, with what Settings leaves out.
@@ -1047,7 +1062,7 @@ enum UpdateInstallPolicy {
         var spinning = false
         var updateNow = false
         var updateNowEnabled = false
-        var updateNowTitle = "Update Now"
+        var updateNowTitle = String(localized: "Update Now")
         var cancel = false
         /// The question before a disconnect, with its button's title.
         var question: String?
@@ -1087,58 +1102,58 @@ enum UpdateInstallPolicy {
                      ownLine: Bool = false, runningBuild: Int? = nil) -> Pane {
         var p = Pane()
         guard available, let running else { return p }
-        let target = offered.map { name(version: $0, build: offeredBuild) } ?? "the update"
+        let target = offered.map { shownName(version: $0, build: offeredBuild) } ?? String(localized: "the update")
         switch s.phase {
         case .idle:
             guard offered != nil else {
                 p.note = automatic.updated
                 return p
             }
-            if ownLine { p.line = "\(target) is available." }
+            if ownLine { p.line = String(localized: "\(target) is available.") }
             p.updateNow = true
             p.updateNowEnabled = refusal == nil
             p.note = refusal.map(words) ?? (automatic.on ? automatic.offerNote : nil)
         case .confirming(let devices):
             p.updateNow = false
-            p.question = "Updating restarts Sill and disconnects \(names(devices.map(\.name)))."
-            p.confirmTitle = "Update and Disconnect"
+            p.question = String(localized: "Updating restarts Sill and disconnects \(names(devices.map(\.name))).")
+            p.confirmTitle = String(localized: "Update and Disconnect")
             p.cancel = true
         case .fetching:
-            p.line = "Getting \(target) from GitHub…"
+            p.line = String(localized: "Getting \(target) from GitHub…")
             p.spinning = true
             p.cancel = true
         case .downloading(let received, let total):
-            p.line = "Downloading \(target)…"
-            p.detail = total > 0 ? "\(megabytes(received)) of \(megabytes(total)) MB" : nil
+            p.line = String(localized: "Downloading \(target)…")
+            p.detail = total > 0 ? String(localized: "\(megabytes(received)) of \(megabytes(total)) MB") : nil
             p.progress = total > 0 ? min(1, Double(received) / Double(total)) : nil
             p.spinning = total == 0
             p.cancel = true
         case .unpacking, .checking:
-            p.line = "Checking \(target)…"
+            p.line = String(localized: "Checking \(target)…")
             p.spinning = true
             p.cancel = true
         case .lookingAgain:
-            p.line = "Checking \(target) with GitHub again…"
+            p.line = String(localized: "Checking \(target) with GitHub again…")
             p.spinning = true
             p.cancel = true
         case .ready(let devices):
-            p.line = "\(target) is ready."
-            p.question = "Installing it restarts Sill and disconnects \(names(devices.map(\.name)))."
-            p.confirmTitle = "Install and Disconnect"
+            p.line = String(localized: "\(target) is ready.")
+            p.question = String(localized: "Installing it restarts Sill and disconnects \(names(devices.map(\.name))).")
+            p.confirmTitle = String(localized: "Install and Disconnect")
             p.cancel = true
         case .waiting:
-            p.line = "\(target) is ready."
+            p.line = String(localized: "\(target) is ready.")
             p.note = refusal.map(words)
-                ?? "Sill installs it by itself once no device has been connected for \(automatic.quietMinutes) minutes, then restarts."
+                ?? String(localized: "Sill installs it by itself once no device has been connected for \(automatic.quietMinutes) minutes, then restarts.")
             p.updateNow = true
             p.updateNowEnabled = refusal == nil
-            p.updateNowTitle = "Install Now"
+            p.updateNowTitle = String(localized: "Install Now")
             p.cancel = true
         case .installing:
-            p.line = "Installing \(target)…"
+            p.line = String(localized: "Installing \(target)…")
             p.spinning = true
         case .restarting:
-            p.line = "Restarting Sill…"
+            p.line = String(localized: "Restarting Sill…")
             p.spinning = true
         case .failed(let f):
             p.line = line(f, running: running, offered: offered ?? running, keptAt: keptAt, offeredBuild: offeredBuild,
@@ -1146,7 +1161,7 @@ enum UpdateInstallPolicy {
             p.failed = true
             p.updateNow = offered != nil
             p.updateNowEnabled = refusal == nil && f.cleanUp
-            p.updateNowTitle = "Try Again"
+            p.updateNowTitle = String(localized: "Try Again")
             p.note = refusal.map(words) ?? (s.mode == .automatic ? automatic.afterFailure : nil)
         }
         p.busy = s.phase.busy
@@ -1157,10 +1172,10 @@ enum UpdateInstallPolicy {
     /// "iPad", "iPad and iPhone", "iPad, iPhone and 2 more".
     static func names(_ devices: [String]) -> String {
         switch devices.count {
-        case 0: return "no device"
+        case 0: return String(localized: "no device")
         case 1: return devices[0]
-        case 2: return "\(devices[0]) and \(devices[1])"
-        default: return "\(devices[0]), \(devices[1]) and \(devices.count - 2) more"
+        case 2: return String(localized: "\(devices[0]) and \(devices[1])")
+        default: return String(localized: "\(devices[0]), \(devices[1]) and \(devices.count - 2) more")
         }
     }
 
@@ -1174,38 +1189,38 @@ enum UpdateInstallPolicy {
     /// ("You have nightly 0.6.2 (1597)": the release offered to it can have its version).
     static func menuItem(_ phase: Phase, offered: SillVersion, running: SillVersion, available: Bool, refusal: Refusal?,
                          offeredBuild: Int? = nil, runningBuild: Int? = nil) -> (title: String, subtitle: String, opensSettings: Bool) {
-        let n = name(version: offered, build: offeredBuild)
-        let have = runningBuild.map { "nightly \(running) (\($0))" } ?? "\(running)"
+        let n = shownName(version: offered, build: offeredBuild)
+        let have = runningBuild.map { String(localized: "nightly \(String(describing: running)) (\(String($0)))") } ?? "\(running)"
         if case .waiting = phase {
-            return ("\(n) Is Ready to Install…", "Installs by itself while no device is connected", true)
+            return (String(localized: "\(n) Is Ready to Install…"), String(localized: "Installs by itself while no device is connected"), true)
         }
         if phase.busy {
             let step: String
             switch phase {
-            case .downloading(let received, let total) where total > 0: step = "Downloading, \(Int(min(1, Double(received) / Double(total)) * 100))%"
-            case .fetching, .downloading: step = "Downloading"
-            case .unpacking, .checking, .lookingAgain: step = "Checking"
-            case .installing: step = "Installing"
-            default: step = "Restarting"
+            case .downloading(let received, let total) where total > 0: step = String(localized: "Downloading, \(Int(min(1, Double(received) / Double(total)) * 100))%")
+            case .fetching, .downloading: step = String(localized: "Downloading")
+            case .unpacking, .checking, .lookingAgain: step = String(localized: "Checking")
+            case .installing: step = String(localized: "Installing")
+            default: step = String(localized: "Restarting")
             }
-            return ("Updating to \(n)…", step, true)
+            return (String(localized: "Updating to \(n)…"), step, true)
         }
         if available, refusal == nil {
-            return ("\(n) Is Available…", "You have \(have); update it in Settings", true)
+            return (String(localized: "\(n) Is Available…"), String(localized: "You have \(have); update it in Settings"), true)
         }
-        return ("\(n) Is Available…", "You have \(have); opens its download page", false)
+        return (String(localized: "\(n) Is Available…"), String(localized: "You have \(have); opens its download page"), false)
     }
 
     /// Under "Use nightly builds" while it is on (plan §16.5): what a nightly trusts, said plainly (the third security
     /// pass's NB1: GitHub builds it and signs it, so its two signatures are one job's, with nobody in between), and
     /// that Update Now alone installs one (Noah's decision of 2026-11-12, option 4: "Automatic for releases only.
     /// Nightlies take one click on Update Now each.").
-    static let nightlyNote = "Nightly builds are built and signed by GitHub from Sill’s newest code; nobody looks at them first. They are less tested than releases and may break. Sill tells you when one is out, and Update Now installs it; a nightly never installs by itself, even with Automatically update Sill on. Turning this off doesn’t go back to the last release: Sill keeps the nightly you have until a release that is at least as new."
+    static let nightlyNote = String(localized: "Nightly builds are built and signed by GitHub from Sill’s newest code; nobody looks at them first. They are less tested than releases and may break. Sill tells you when one is out, and Update Now installs it; a nightly never installs by itself, even with Automatically update Sill on. Turning this off doesn’t go back to the last release: Sill keeps the nightly you have until a release that is at least as new.")
 
     /// Under the switch while it is off and this Sill is a nightly: no downgrade. The next release it gets is one
     /// built from its commit or a later one, its own version's included (`isNewer`, `chooseOffer`).
     static func nightlyOffNote(version: SillVersion, build: Int) -> String {
-        "You have a nightly build, \(version) (\(build)). Sill updates to the next release that is at least as new."
+        String(localized: "You have a nightly build, \(String(describing: version)) (\(String(build))). Sill updates to the next release that is at least as new.")
     }
 
     /// Settings › General's footnote in a build with an update key (UpdatePolicy.footnote otherwise, which
@@ -1214,18 +1229,18 @@ enum UpdateInstallPolicy {
     /// builds" is on (plan §16.5): a nightly is built and signed by GitHub (the third security pass's NB1), Sill
     /// also asks for one each time it opens (N10 n), and Update Now alone installs it (option 4).
     static func footnote(automatic: Bool, nightly: Bool = false) -> String {
-        let checks = nightly
-            ? "Before it installs a new version, Sill checks it two ways: it must carry Apple’s signature and notarization for Sill’s developer, and a release must be signed with Sill’s own update key; a nightly build is signed by GitHub, which builds it."
-            : "Before it installs a new version, Sill checks it two ways: it must carry Apple’s signature and notarization for Sill’s developer, and the release must be signed with Sill’s own update key."
-        let ask = (nightly ? "Once a day, and with nightly builds on each time Sill opens, Sill asks GitHub whether a newer version is out."
-                           : "Once a day, Sill asks GitHub whether a newer version is out.")
-            + " GitHub sees this Mac’s IP address and which version of Sill it has; nothing else is sent."
-        if automatic {
-            let what = nightly ? "Sill downloads a new release" : "Sill downloads a new version"
-            let nightlies = nightly ? " A nightly build installs only when you click Update Now." : ""
-            return "\(ask) Automatically update Sill is on: \(what) \(UpdateAutoPolicy.coolingOffWords), then installs it and restarts once no device has been connected for \(UpdateAutoPolicy.quietMinutes) minutes; it never disconnects anyone.\(nightlies) \(checks) Update Now checks it the same way, at once."
+        // Each footnote one text, so a language can order its sentences its own way.
+        let wait = UpdateAutoPolicy.coolingOffWords, quiet = UpdateAutoPolicy.quietMinutes
+        switch (automatic, nightly) {
+        case (true, true):
+            return String(localized: "Once a day, and with nightly builds on each time Sill opens, Sill asks GitHub whether a newer version is out. GitHub sees this Mac’s IP address and which version of Sill it has; nothing else is sent. Automatically update Sill is on: Sill downloads a new release \(wait), then installs it and restarts once no device has been connected for \(quiet) minutes; it never disconnects anyone. A nightly build installs only when you click Update Now. Before it installs a new version, Sill checks it two ways: it must carry Apple’s signature and notarization for Sill’s developer, and a release must be signed with Sill’s own update key; a nightly build is signed by GitHub, which builds it. Update Now checks it the same way, at once.")
+        case (true, false):
+            return String(localized: "Once a day, Sill asks GitHub whether a newer version is out. GitHub sees this Mac’s IP address and which version of Sill it has; nothing else is sent. Automatically update Sill is on: Sill downloads a new version \(wait), then installs it and restarts once no device has been connected for \(quiet) minutes; it never disconnects anyone. Before it installs a new version, Sill checks it two ways: it must carry Apple’s signature and notarization for Sill’s developer, and the release must be signed with Sill’s own update key. Update Now checks it the same way, at once.")
+        case (false, true):
+            return String(localized: "Once a day, and with nightly builds on each time Sill opens, Sill asks GitHub whether a newer version is out. GitHub sees this Mac’s IP address and which version of Sill it has; nothing else is sent. Sill downloads and installs nothing by itself. Update Now downloads the new version from GitHub, puts it in place of this copy and restarts Sill; Open Release Page… shows it on GitHub instead. Before it installs a new version, Sill checks it two ways: it must carry Apple’s signature and notarization for Sill’s developer, and a release must be signed with Sill’s own update key; a nightly build is signed by GitHub, which builds it.")
+        case (false, false):
+            return String(localized: "Once a day, Sill asks GitHub whether a newer version is out. GitHub sees this Mac’s IP address and which version of Sill it has; nothing else is sent. Sill downloads and installs nothing by itself. Update Now downloads the new version from GitHub, puts it in place of this copy and restarts Sill; Open Release Page… shows it on GitHub instead. Before it installs a new version, Sill checks it two ways: it must carry Apple’s signature and notarization for Sill’s developer, and the release must be signed with Sill’s own update key.")
         }
-        return "\(ask) Sill downloads and installs nothing by itself. Update Now downloads the new version from GitHub, puts it in place of this copy and restarts Sill; Open Release Page… shows it on GitHub instead. \(checks)"
     }
 }
 

@@ -1085,7 +1085,7 @@ final class AppUpdater {
         proving = true
         // This Sill is the update the person started in Settings: the window they clicked in, back, saying so.
         installedLine = runningVersion.flatMap {
-            Policy.installedLine(Policy.name(version: $0, build: runningIsNightly ? runningBuild : nil), automatic: automatic)
+            Policy.installedLine(Policy.shownName(version: $0, build: runningIsNightly ? runningBuild : nil), automatic: automatic)
         }
         if Policy.reopensSettings(automatic: automatic) { showUpdated?() }
         let proved = Timer(timeInterval: Policy.provedAfter, repeats: false) { [weak self] _ in

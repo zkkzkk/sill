@@ -627,7 +627,7 @@ final class UpdateInstaller: @unchecked Sendable {
         let random = staging.lastPathComponent.split(separator: "_").last.map(String.init) ?? "kept"
         let named = staging.deletingLastPathComponent().appendingPathComponent(setAsidePrefix + random)
         let folder = renamex_np(staging.path, named.path, UInt32(RENAME_EXCL)) == 0 ? named : staging
-        let text = "This folder holds the copy of Sill that an update replaced and could not put back.\nTo go back to it, quit Sill and move the app in this folder to your Applications folder.\n"
+        let text = String(localized: "This folder holds the copy of Sill that an update replaced and could not put back.\nTo go back to it, quit Sill and move the app in this folder to your Applications folder.\n")
         FileManager.default.createFile(atPath: folder.appendingPathComponent(keptMarker).path, contents: Data(text.utf8),
                                        attributes: [.posixPermissions: 0o600])
         return folder

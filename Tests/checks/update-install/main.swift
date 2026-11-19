@@ -1585,7 +1585,7 @@ check(UpdateInstallPolicy.installedLine("Sill 0.6.3", automatic: true) == nil, "
 check(UpdateInstallPolicy.Pane().installed == nil, "a pane says nothing was installed unless told")
 do {
     let updater = text("AppUpdater.swift"), panes = text("SettingsPanes.swift")
-    check(updater.contains("Policy.installedLine(Policy.name(version: $0, build: runningIsNightly ? runningBuild : nil), automatic: automatic)")
+    check(updater.contains("Policy.installedLine(Policy.shownName(version: $0, build: runningIsNightly ? runningBuild : nil), automatic: automatic)")
           && updater.contains("if pane.line == nil { pane.installed = installedLine }"),
           "the updater makes the line for the Sill an update installed, and shows it while no other update has the pane's line")
     check(panes.contains("if let installed = install.installed {\n                        Text(installed)\n                            .foregroundStyle(Color.green)"),

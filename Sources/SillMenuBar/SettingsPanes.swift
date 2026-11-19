@@ -401,7 +401,7 @@ struct UpdatesSection: View {
                     Text(question)
                         .fixedSize(horizontal: false, vertical: true)
                     HStack(spacing: 8) {
-                        Button(install.confirmTitle ?? "Update") { actions.confirm() }
+                        Button(install.confirmTitle ?? String(localized: "Update")) { actions.confirm() }
                         Button("Cancel") { actions.cancel() }
                     }
                 }

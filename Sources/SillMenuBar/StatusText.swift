@@ -237,7 +237,7 @@ enum StatusText {
     }
 
     /// Under the header while the off-console view applies (HostStatusSnapshot.offConsoleView).
-    static let offConsoleViewSubtitle = "Another user is on this Mac’s screen. Devices see this account, and can’t click or type in it."
+    static let offConsoleViewSubtitle = String(localized: "Another user is on this Mac’s screen. Devices see this account, and can’t click or type in it.")
 
     private static func isFailed(_ n: HostStatusSnapshot.Network) -> Bool {
         if case .failed = n { return true }

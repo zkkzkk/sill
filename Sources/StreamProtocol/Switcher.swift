@@ -170,13 +170,13 @@ public enum LockedMac {
 
     /// The line over the stream while the off-console view lasts (where the link's line goes), three lines at
     /// most; VoiceOver hears it once as it comes.
-    public static let viewLine = "Your account’s own desktop, not this Mac’s screen. Taps and keys reach it once your account is back on the screen."
+    public static var viewLine: String { String(localized: "Your account’s own desktop, not this Mac’s screen. Taps and keys reach it once your account is back on the screen.") }
 
     /// The Settings panel's header and the Apps drawer, above its open apps, in the off-console view.
-    public static let viewPanelLine = "Another user is on this Mac’s screen. You’re seeing your account’s own desktop and windows, not the screen. Taps, keys and opening apps wait until your account is back on it."
+    public static var viewPanelLine: String { String(localized: "Another user is on this Mac’s screen. You’re seeing your account’s own desktop and windows, not the screen. Taps, keys and opening apps wait until your account is back on it.") }
 
     /// What VoiceOver hears after a dimmed Aa's name and value in the off-console view (no window is sized).
-    public static let viewTextScaleHint = "Available once your account is back on this Mac’s screen."
+    public static var viewTextScaleHint: String { String(localized: "Available once your account is back on this Mac’s screen.") }
 
     /// The Apps drawer's and the Settings panel's line, where the Mac's windows would be. Another user's
     /// is the cover's title and line together, in Noah's words (2026-11-02), with no Mac's name in them.

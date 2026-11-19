@@ -18,12 +18,11 @@ MUTANTS = [
     ("T5 a missing build shown as ()", 'if let build { words += " (\\(build))" }', 'words += " (\\(build ?? ""))"'),
     ("T6 the version with a v (Sill v0.6.2 (1400))", 'if let version { words += " \\(version)" }', 'if let version { words += " v\\(version)" }'),
     # The words spoken.
-    ("S1 spoken without \"version\" (Sill 0.6.2, build 1400)", 'if let version { words += " version \\(version)" }', 'if let version { words += " \\(version)" }'),
-    ("S2 spoken without the comma (Sill version 0.6.2 build 1400)", 'if let build { words += ", build \\(build)" }', 'if let build { words += " build \\(build)" }'),
-    ("S3 spoken as shown (the parentheses read out)", 'var spoken: String {\n        var words = "Sill"\n        if let version { words += " version \\(version)" }\n        if let build { words += ", build \\(build)" }\n        return words\n    }',
+    ("S1 spoken without \"version\" (Sill 0.6.2, build 1400)", 'String(localized: "Sill version \\(version), build \\(build)")', 'String(localized: "Sill \\(version), build \\(build)")'),
+    ("S2 spoken without the comma (Sill version 0.6.2 build 1400)", 'String(localized: "Sill version \\(version), build \\(build)")', 'String(localized: "Sill version \\(version) build \\(build)")'),
+    ("S3 spoken as shown (the parentheses read out)", 'var spoken: String {\n        switch (version, build) {\n        case let (version?, build?): return String(localized: "Sill version \\(version), build \\(build)")\n        case let (version?, nil): return String(localized: "Sill version \\(version)")\n        case let (nil, build?): return String(localized: "Sill, build \\(build)")\n        case (nil, nil): return "Sill"\n        }\n    }',
      'var spoken: String { text }'),
-    ("S4 spoken without the name (version 0.6.2, build 1400)", 'var words = "Sill"\n        if let version { words += " version \\(version)" }',
-     'var words = ""\n        if let version { words += "version \\(version)" }'),
+    ("S4 spoken without the name (version 0.6.2, build 1400)", 'String(localized: "Sill version \\(version), build \\(build)")', 'String(localized: "version \\(version), build \\(build)")'),
     # A label at all.
     ("I1 a label without either value (a lone \"Sill\")", "guard v != nil || b != nil else { return nil }", "guard true else { return nil }"),
     ("I2 a label only with both (no label without a build)", "guard v != nil || b != nil else { return nil }", "guard v != nil && b != nil else { return nil }"),

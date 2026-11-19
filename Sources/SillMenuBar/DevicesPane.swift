@@ -94,7 +94,7 @@ struct DevicesPane: View {
             Section {
                 Toggle("Show this account while another user is on the screen", isOn: $offConsoleView)
             } footer: {
-                Footnote("For a Mac you reach only through Sill. While another user, or the login window, is on this Mac’s screen, devices see this account’s own desktop and windows instead of nothing: not what the screen shows, and nothing they tap or type reaches this account until it’s back on the screen.")
+                Footnote(String(localized: "For a Mac you reach only through Sill. While another user, or the login window, is on this Mac’s screen, devices see this account’s own desktop and windows instead of nothing: not what the screen shows, and nothing they tap or type reaches this account until it’s back on the screen."))
             }
             pairedDevices
         }

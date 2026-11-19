@@ -458,25 +458,25 @@ enum FullScreenPolicy {
 
     enum Copy {
         /// The hint's two lines.
-        static let hintTitle = "Controls hidden"
-        static let hintLine = "Swipe in from the left edge to bring them back."
+        static var hintTitle: String { String(localized: "Controls hidden") }
+        static var hintLine: String { String(localized: "Swipe in from the left edge to bring them back.") }
         /// VoiceOver, every time it hides.
-        static let announcement = "Sill’s controls are hidden. Use the Show Controls action, or the escape gesture, to bring them back."
+        static var announcement: String { String(localized: "Sill’s controls are hidden. Use the Show Controls action, or the escape gesture, to bring them back.") }
         /// VoiceOver, when they come back.
-        static let shownAnnouncement = "Sill’s controls are back."
+        static var shownAnnouncement: String { String(localized: "Sill’s controls are back.") }
         /// The hidden picture as one element, for VoiceOver, Switch Control and Voice Control.
-        static func pictureLabel(mac: String) -> String { "\(mac)’s picture. Sill’s controls are hidden." }
-        static let action = "Show Controls"
+        static func pictureLabel(mac: String) -> String { String(localized: "\(mac)’s picture. Sill’s controls are hidden.") }
+        static var action: String { String(localized: "Show Controls") }
         /// Voice Control's names for it.
-        static let inputLabels = ["Show Controls", "Show Sill"]
+        static var inputLabels: [String] { [String(localized: "Show Controls"), String(localized: "Show Sill")] }
         /// Settings › This iPad › Full Screen.
-        static let rowTitle = "Full Screen"
-        static let rowHint = "Hides Sill’s controls."
-        static let footnote = "Hides Sill’s controls, so only the picture shows. Swipe in from the left edge to bring them back."
+        static var rowTitle: String { String(localized: "Full Screen") }
+        static var rowHint: String { String(localized: "Hides Sill’s controls.") }
+        static var footnote: String { String(localized: "Hides Sill’s controls, so only the picture shows. Swipe in from the left edge to bring them back.") }
         /// Settings › This iPad › Shake to Show Controls, and the line under it.
-        static let shakeTitle = "Shake to Show Controls"
-        static func shakeFootnote(device: String) -> String { "Shaking your \(device) brings the controls back too." }
+        static var shakeTitle: String { String(localized: "Shake to Show Controls") }
+        static func shakeFootnote(device: String) -> String { String(localized: "Shaking your \(device) brings the controls back too.") }
         /// Under the row while Sill's window does not fill the screen.
-        static let notOffered = "Full Screen works while Sill fills the screen."
+        static var notOffered: String { String(localized: "Full Screen works while Sill fills the screen.") }
     }
 }
