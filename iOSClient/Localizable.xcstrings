@@ -639,18 +639,12 @@
         }
       }
     },
-    "%@ looks off on this %@. Turn it on, then tap %@.": {
+    "%@ looks off on this %@ or on %@. Turn it on for both, then tap %@.": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "new",
-            "value": "%1$@ looks off on this %2$@. Turn it on, then tap %3$@."
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "这台 %2$@ 上的 %1$@ 似乎已关闭。请打开它，然后轻点 %3$@。"
+            "value": "这台 %2$@ 或 %3$@ 上的 %1$@ 似乎已关闭。请在两边都打开它，然后轻点 %4$@。"
           }
         }
       }
@@ -1003,6 +997,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ 的硬件编码器繁忙或没有响应，所以目前串流最高 60 fps，分辨率为“标准”。"
+          }
+        }
+      }
+    },
+    "%@’s picture. Sill’s controls are hidden.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ 的画面。Sill 的控制按钮已隐藏。"
           }
         }
       }
@@ -1375,6 +1379,16 @@
         }
       }
     },
+    "Another user is on this Mac’s screen. You’re seeing your account’s own desktop and windows, not the screen. Taps, keys and opening apps wait until your account is back on it.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "另一位用户正在使用这台 Mac 的屏幕。你看到的是你账户自己的桌面和窗口，而不是屏幕。轻点、按键和打开 App 要等你的账户回到屏幕上后才会生效。"
+          }
+        }
+      }
+    },
     "Another user started controlling this Mac.": {
       "localizations": {
         "zh-Hans": {
@@ -1451,6 +1465,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "仅适用于窗口。"
+          }
+        }
+      }
+    },
+    "Available once your account is back on this Mac’s screen.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你的账户回到这台 Mac 的屏幕上后即可使用。"
           }
         }
       }
@@ -1943,6 +1967,26 @@
         }
       }
     },
+    "Controls hidden": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "控制按钮已隐藏"
+          }
+        }
+      }
+    },
+    "Copy": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "拷贝"
+          }
+        }
+      }
+    },
     "Copy on this %@, then come back to Sill: ": {
       "localizations": {
         "zh-Hans": {
@@ -1985,6 +2029,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "桌面"
+          }
+        }
+      }
+    },
+    "Desktop %lld": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "桌面 %lld"
           }
         }
       }
@@ -2045,6 +2099,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "忽略"
+          }
+        }
+      }
+    },
+    "Display %lld of %lld": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "第 %1$lld 个显示器，共 %2$lld 个"
+          }
+        }
+      }
+    },
+    "Display %lld of %lld, %@": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "第 %1$lld 个显示器，共 %2$lld 个，%3$@"
           }
         }
       }
@@ -2215,6 +2289,16 @@
         }
       }
     },
+    "Full Screen works while Sill fills the screen.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sill 占满屏幕时才能使用全屏幕。"
+          }
+        }
+      }
+    },
     "Full screen": {
       "localizations": {
         "zh-Hans": {
@@ -2261,6 +2345,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "隐藏键盘"
+          }
+        }
+      }
+    },
+    "Hides Sill’s controls, so only the picture shows. Swipe in from the left edge to bring them back.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "隐藏 Sill 的控制按钮，只显示画面。从左边缘向内轻扫即可恢复。"
+          }
+        }
+      }
+    },
+    "Hides Sill’s controls.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "隐藏 Sill 的控制按钮。"
           }
         }
       }
@@ -2411,6 +2515,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "更大的画面"
+          }
+        }
+      }
+    },
+    "Leave Sill while %@’s picture shows, and it keeps playing in a small window over your other apps, with its sound when Send Audio is on. That window only shows the picture: tap it to come back to Sill. iOS starts it only while its own Start PiP Automatically setting is on.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在显示 %@ 的画面时离开 Sill，画面会在其他 App 上方的小窗口中继续播放；打开“传送声音”时也会播放声音。这个窗口只显示画面：轻点它即可回到 Sill。只有 iOS 自身的“自动开启画中画”设置打开时，iOS 才会启动它。"
           }
         }
       }
@@ -3143,6 +3257,16 @@
         }
       }
     },
+    "Picture in Picture": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "画中画"
+          }
+        }
+      }
+    },
     "Pinch": {
       "localizations": {
         "zh-Hans": {
@@ -3477,6 +3601,26 @@
         }
       }
     },
+    "Shake to Show Controls": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "摇动以显示控制按钮"
+          }
+        }
+      }
+    },
+    "Shaking your %@ brings the controls back too.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "摇动你的 %@ 也可以恢复控制按钮。"
+          }
+        }
+      }
+    },
     "Share Clipboard": {
       "localizations": {
         "zh-Hans": {
@@ -3497,12 +3641,32 @@
         }
       }
     },
+    "Show Controls": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示控制按钮"
+          }
+        }
+      }
+    },
     "Show Desktop": {
       "localizations": {
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "显示桌面"
+          }
+        }
+      }
+    },
+    "Show Sill": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示 Sill"
           }
         }
       }
@@ -3577,6 +3741,26 @@
         }
       }
     },
+    "Shows the Mac’s desktop.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示 Mac 的桌面。"
+          }
+        }
+      }
+    },
+    "Shows the next display.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "切换到下一个显示器。"
+          }
+        }
+      }
+    },
     "Sill can’t use the camera. Enter the code instead, or allow the camera in Settings.": {
       "localizations": {
         "zh-Hans": {
@@ -3587,12 +3771,62 @@
         }
       }
     },
+    "Sill version %@": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sill 版本 %@"
+          }
+        }
+      }
+    },
+    "Sill version %@, build %@": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sill 版本 %1$@，构建版本 %2$@"
+          }
+        }
+      }
+    },
+    "Sill, build %@": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sill，构建版本 %@"
+          }
+        }
+      }
+    },
     "SillHost keeps these until it quits.": {
       "localizations": {
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "SillHost 退出前会一直保留这些设置。"
+          }
+        }
+      }
+    },
+    "Sill’s controls are back.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sill 的控制按钮已恢复。"
+          }
+        }
+      }
+    },
+    "Sill’s controls are hidden. Use the Show Controls action, or the escape gesture, to bring them back.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sill 的控制按钮已隐藏。使用“显示控制按钮”操作或退出手势即可恢复。"
           }
         }
       }
@@ -3765,6 +3999,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "向上轻扫"
+          }
+        }
+      }
+    },
+    "Swipe in from the left edge to bring them back.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "从左边缘向内轻扫即可恢复。"
           }
         }
       }
@@ -4209,18 +4453,12 @@
         }
       }
     },
-    "This %@ can’t look up %@. Is Tailscale on?": {
+    "This %@ can’t look up %@. Is Tailscale on, here and on %@?": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "new",
-            "value": "This %1$@ can’t look up %2$@. Is Tailscale on?"
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "这台 %1$@ 无法查找 %2$@。Tailscale 开着吗？"
+            "value": "这台 %1$@ 无法查找 %2$@。这里和 %3$@ 上的 Tailscale 都开着吗？"
           }
         }
       }
@@ -4823,18 +5061,22 @@
         }
       }
     },
-    "Your VPN looks off on this %@. Turn it on, then tap %@.": {
+    "Your VPN looks off on this %@ or on %@. Turn it on for both, then tap %@.": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "new",
-            "value": "Your VPN looks off on this %1$@. Turn it on, then tap %2$@."
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "这台 %@ 上的 VPN 似乎已关闭。请打开它，然后轻点 %@。"
+            "value": "这台 %1$@ 或 %2$@ 上的 VPN 似乎已关闭。请在两边都打开它，然后轻点 %3$@。"
+          }
+        }
+      }
+    },
+    "Your account’s own desktop, not this Mac’s screen. Taps and keys reach it once your account is back on the screen.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这是你账户自己的桌面，不是这台 Mac 的屏幕。你的账户回到屏幕上后，轻点和按键才会传到它。"
           }
         }
       }
@@ -4895,6 +5137,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "macOS 不允许 Sill 读取剪贴板，因此你在这里拷贝的内容会留在这台 Mac 上。"
+          }
+        }
+      }
+    },
+    "no Secure Enclave access control": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "无法创建安全隔区访问控制"
           }
         }
       }

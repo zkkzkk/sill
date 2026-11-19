@@ -225,15 +225,19 @@ enum StatusText {
         let count = s.devices.count
         if count > 0 {
             let who = count == 1 ? (s.devices[0].name.map(shortName) ?? String(localized: "a Device")) : String(localized: "\(count) Devices")
-            if s.stream != nil { return (String(localized: "Streaming to \(who)"), nil) }
+            // The off-console view (docs/off-console-plan.md): what the devices see is not this Mac's screen.
+            if s.stream != nil { return (String(localized: "Streaming to \(who)"), s.offConsoleView ? offConsoleViewSubtitle : nil) }
             let connected = count == 1 ? (s.devices[0].name.map(shortName) ?? String(localized: "Device")) : String(localized: "\(count) Devices")
-            return (String(localized: "\(connected) Connected"), String(localized: "Pick a window on the device to start streaming."))
+            return (String(localized: "\(connected) Connected"), s.offConsoleView ? offConsoleViewSubtitle : String(localized: "Pick a window on the device to start streaming."))
         }
         if case .advertising(let name) = s.network {
             return (String(localized: "Waiting for a Device"), String(localized: "Open Sill on your iPhone or iPad. This Mac appears as “\(name)”."))
         }
         return (String(localized: "Waiting for a Device"), String(localized: "Registering on the local network…"))
     }
+
+    /// Under the header while the off-console view applies (HostStatusSnapshot.offConsoleView).
+    static let offConsoleViewSubtitle = String(localized: "Another user is on this Mac’s screen. Devices see this account, and can’t click or type in it.")
 
     private static func isFailed(_ n: HostStatusSnapshot.Network) -> Bool {
         if case .failed = n { return true }
